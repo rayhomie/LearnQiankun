@@ -36,7 +36,6 @@ ReactDOM.render(
           element={<div id='childApp'></div>}
         ></Route>
       </Routes>
-      {/* <div id='childApp'></div> */}
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
