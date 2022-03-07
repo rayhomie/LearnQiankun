@@ -17,23 +17,14 @@ export async function bootstrap() {
  * 应用每次进入都会调用 mount 方法，通常我们在这里触发应用的渲染方法
  */
 export async function mount(props) {
-  ReactDOM.render(
-    <App />,
-    props.container
-      ? props.container.querySelector('#root')
-      : document.getElementById('root')
-  );
+  render(props.container);
 }
 
 /**
  * 应用每次 切出/卸载 会调用的方法，通常在这里我们会卸载微应用的应用实例
  */
 export async function unmount(props) {
-  ReactDOM.unmountComponentAtNode(
-    props.container
-      ? props.container.querySelector('#root')
-      : document.getElementById('root')
-  );
+  remove(props.container);
 }
 
 /**
@@ -43,9 +34,15 @@ export async function update(props) {
   console.log('update props', props);
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function render(container) {
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    container || document.getElementById('root')
+  );
+}
+
+function remove(container) {
+  ReactDOM.unmountComponentAtNode(container || document.getElementById('root'));
+}
